@@ -1,0 +1,154 @@
+---
+import Paper from "../Choices/Paper.astro";
+import Rock from "../Choices/Rock.astro";
+import Scissors from "../Choices/Scissors.astro";
+import Lizard from "../Choices/Lizard.astro";
+import Spock from "../Choices/Spock.astro";
+---
+
+<div class="step-1">
+  <div class="choices">
+    <div>
+      <div class="choice-paper"><Paper /></div>
+      <div class="choice-scissors"><Scissors /></div>
+    </div>
+    <div>
+      <div class="choice-rock"><Rock /></div>
+    </div>
+  </div>
+  <img class="triangle-bg" src="/bg-triangle.svg" alt="Triangle background">
+
+  <div class="choices-bonus">
+    <div>
+      <div class="choice-scissors"><Scissors /></div>
+    </div>
+    <div>
+      <div class="choice-spock"><Spock /></div>
+      <div class="choice-paper"><Paper /></div>
+    </div>
+    <div>
+      <div class="choice-lizard"><Lizard /></div>
+      <div class="choice-rock"><Rock /></div>
+    </div>
+  </div>
+  <img class="pentagon-bg" src="/bg-pentagon.svg" alt="Pentagon background">
+</div>
+
+<style>
+  .step-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 100%;
+    position: relative;
+    padding: 4em 4em;
+  }
+
+  .step-1[aria-expanded] {
+    padding: 3em 4em;
+  }
+
+  .step-1[aria-expanded] .triangle-bg,
+  .step-1[aria-expanded] .choices {
+    display: none;
+  }
+
+  .step-1[aria-expanded] .pentagon-bg,
+  .step-1[aria-expanded] .choices-bonus {
+    display: flex;
+  }
+
+  .triangle-bg {
+    display: block;
+    width: 330px;
+    height: 100%;
+  }
+
+  .choices {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    z-index: 80;
+  }
+
+  .choices > div:nth-child(1) {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .choices > div > div,
+  .choices-bonus > div > div {
+    transition: scale .12s ease-out;
+  }
+  
+  .choices > div > div:hover {
+    scale: 104%
+  }
+
+  .choices-bonus > div > div:hover {
+    scale: 74%;
+  }
+
+  .choices-bonus {
+    display: none;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    z-index: 80;
+  }
+
+  .choices-bonus > div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+    transform: translateY(30px);
+  }
+
+  .choices-bonus > div:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-30px);
+  }
+
+  .choices-bonus > div:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    transform: translateY(-42px);
+  }
+
+  .choices-bonus > div {
+    width: 100%;
+  }
+
+  .choices-bonus > div > div {
+    scale: 70%;
+  }
+
+  .pentagon-bg {
+    display: none;
+    width: 330px;
+    height: 100%;
+  }
+
+  @media (width <= 850px) {
+    .step-1 {
+      min-height: 421px;
+      scale: 80%;
+    }
+  }
+
+  @media (width <= 500px) {
+    .step-1 {
+      scale: 70%
+    }
+  }
+</style>

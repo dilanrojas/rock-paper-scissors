@@ -1,0 +1,160 @@
+<div class="step-2">
+
+  <div class="user-choice">
+    <h1>You picked</h1>
+    <div class="user-choice-wrapper">
+      <div class="focus"></div>
+    </div>
+  </div>
+  
+  <div class="results">
+    <h1 class="game-result"></h1>
+    <button class="play-again-btn">Play again</button>
+  </div>
+  
+  <div class="house-choice">
+    <h1>The house picked</h1>
+    <div class="house-choice-wrapper">
+      <div class="focus"></div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .step-2 {
+    display: none;
+    grid-template-columns: 1fr auto 1fr;
+    height: 400px;
+  }
+
+  .house-choice {
+    grid-column: 3;
+  }
+
+  .user-choice,
+  .house-choice {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding-inline: 7em;
+  }
+
+  h1 {
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.686);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-wrap: nowrap;
+    z-index: 80;
+  }
+
+  .user-choice {
+    transform: translateX(140px);
+  }
+
+  .house-choice {
+    transform: translateX(-140px);
+  }
+
+  .user-choice,
+  .house-choice {
+    animation: translate .35s forwards .8s;
+  }
+
+  .user-choice-wrapper,
+  .house-choice-wrapper {
+    position: relative;
+    scale: 140%;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .user-choice-wrapper::before,
+  .house-choice-wrapper::before {
+    content: '';
+    position: absolute;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.138);
+    width: 140px;
+    height: 140px;
+    border-radius: 100%;
+  }
+
+  .focus {
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 480px;
+    height: 480px;
+    border-radius: 100%;
+    background-color: rgb(34, 49, 80, .4);
+    scale: 0%;
+  }
+
+  .focus.active {
+    display: flex;
+    animation: zoom .4s forwards 1s
+  }
+
+  .focus::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 380px;
+    height: 380px;
+    border-radius: 100%;
+    background-color: rgb(38, 53, 84, .4);
+  }
+
+  .focus::after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 280px;
+    height: 280px;
+    border-radius: 100%;
+    background-color: rgb(43, 56, 88, .5);
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 205px;
+    gap: 1em;
+    z-index: 80;
+    opacity: 0;
+    pointer-events: none;
+    animation: fadeInPointer .3s forwards .9s
+  }
+
+  .game-result {
+    font-size: 3em;
+  }
+
+  .results button {
+    cursor: pointer;
+    width: 100%;
+    border: 0;
+    background-color: white;
+    border-radius: 10px;
+    padding: .8em 0em;
+    transition: color;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+  }
+
+  .results button:hover {
+    color: rgb(220, 46, 78)
+  }
+
+</style>

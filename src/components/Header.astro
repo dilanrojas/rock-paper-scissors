@@ -1,0 +1,141 @@
+<header class="container">
+  <img class="logo" src="/logo.svg" alt="Logo">
+  <div class="score-wrapper">
+    <h1>Score</h1>
+    <span class="score">0</span>
+  </div>
+</header>
+
+<style>
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 150.8px;
+
+    border: 3px solid var(--header-outline);
+    padding: 1em 1.5em;
+    border-radius: 20px;
+    position: relative;
+    z-index: 90;
+  }
+
+  .score-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    width: 5em;
+    height: 4em;
+    font-size: 1.5em;
+  }
+
+  h1 {
+    text-transform: uppercase;
+    font-size: .6em;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--score-text);
+    z-index: 70;
+  }
+
+  span {
+    color: var(--dk-text);
+    font-weight: 700;
+    font-size: 2.5em;
+    line-height: 1;
+  }
+
+  .logo {
+    cursor: pointer;
+  }
+
+  @media (width <= 500px) {
+    .logo {
+      width: 70px;
+    }
+    header {
+      min-height: 109.9px;
+    }
+    .score-wrapper {
+      width: 4em;
+      height: 4em;
+      font-size: 1em;
+    }
+  }
+</style>
+
+<script>
+  const logo = document.querySelector(".logo") as HTMLImageElement;
+  const rules = document.querySelector(".rules");
+  const step1 = document.querySelector(".step-1") as HTMLElement;
+
+  const normalChoices = document.querySelector(".choices") as HTMLElement;
+  const triangle = document.querySelector(".triangle-bg") as HTMLImageElement;
+  const bonusChoices = document.querySelector(".choices-bonus") as HTMLElement;
+  const pentagon = document.querySelector(".pentagon-bg") as HTMLIFrameElement;
+
+  const choices = [triangle, normalChoices];
+  const choicesBonus = [pentagon, bonusChoices];
+
+  function toChoices() {
+    choicesBonus.forEach(element => {
+      logo.style.animation = "fadeOut .3s forwards";
+        logo.addEventListener("animationend", () => {
+          logo.src = "/logo.svg";
+          logo.style.animation = "fadeIn .3s forwards";
+          logo.addEventListener("animationend", () => {
+            logo.style.animation = "";
+          }, {once: true})
+        }, {once: true})
+      element.style.animation = "zoomOut .2s forwards";
+      element.addEventListener("animationend", () => {
+        element.style.animation = "";
+        step1.removeAttribute("aria-expanded");
+        rules.removeAttribute("aria-expanded");
+        choices.forEach(element => {
+          element.style.animation = "zoom .2s forwards";
+          element.addEventListener("animationend", () => {
+            element.style.animation = "";
+          }, {once: true});
+        })
+      }, {once: true})
+    });
+  };
+  
+  function toChoicesBonus() {
+    choices.forEach(element => {
+      logo.style.animation = "fadeOut .3s forwards";
+        logo.addEventListener("animationend", () => {
+          logo.src = "/logo-bonus.svg";
+          logo.style.animation = "fadeIn .3s forwards";
+          logo.addEventListener("animationend", () => {
+            logo.style.animation = "";
+          }, {once: true})
+        }, {once: true})
+      element.style.animation = "zoomOut .2s forwards";
+      element.addEventListener("animationend", () => {
+        element.style.animation = "";
+        step1.setAttribute("aria-expanded", "");
+        rules.setAttribute("aria-expanded", "");
+        choicesBonus.forEach(element => {
+          element.style.animation = "zoom .2s forwards";
+          element.addEventListener("animationend", () => {
+            element.style.animation = "";
+          }, {once: true})
+        });
+      }, {once: true});
+    })
+  };
+
+  logo.addEventListener("click", () => {
+    if (step1.hasAttribute("aria-expanded")) {
+      toChoices();
+    } else {
+      toChoicesBonus();
+    };
+  });
+</script>

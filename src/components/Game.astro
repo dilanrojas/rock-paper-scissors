@@ -1,0 +1,228 @@
+---
+import Step1 from "./Steps/Step1.astro"
+import Step2 from "./Steps/Step2.astro"
+---
+
+<section class="game">
+  <Step1 />
+  <Step2 />
+
+</section>
+
+<style is:global>
+  .game {
+    margin-top: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .choice {
+    --shadow: 0px 8px 0px;
+
+    cursor: pointer;
+    position: relative;
+    border-radius: 100%;
+    height: 190px;
+    width: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: scale .12s ease-out;
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.413));
+  }
+
+  .choice::before {
+    position: absolute;
+    content: '';
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+    background: linear-gradient(-45deg, white 5%, rgb(208, 208, 208) 100%);
+    box-shadow: inset var(--shadow) rgba(0, 0, 0, .12);
+  }
+
+  .choice img {
+    position: absolute;
+    width: 70px;
+  }
+
+  @media(width <= 850px) {
+    .game {
+      margin-top: 2em;
+    }
+  }
+</style>
+
+<script>
+  const paper = document.querySelector(".paper");
+  const scissors = document.querySelector(".scissors");
+  const rock = document.querySelector(".rock");
+  const lizard = document.querySelector(".lizard");
+  const spock = document.querySelector(".spock");
+
+  let currentScore = localStorage.getItem('score');
+  const score = document.querySelector(".score") as HTMLElement;
+  if (currentScore != null) { score.textContent = currentScore.toString() };
+
+  const paperIcon = document.querySelectorAll(".choice-paper");
+  const scissorsIcon = document.querySelectorAll(".choice-scissors");
+  const rockIcon = document.querySelectorAll(".choice-rock");
+  const lizardIcon = document.querySelector(".lizard");
+  const spockIcon = document.querySelector(".spock");
+
+  const step1 = document.querySelector(".step-1") as HTMLElement;
+  const step2 = document.querySelector(".step-2") as HTMLElement;
+
+  const result = document.querySelector(".game-result") as HTMLElement;
+  const focusUser = document.querySelector(".user-choice-wrapper .focus") as HTMLElement;
+  const focusHouse = document.querySelector(".house-choice-wrapper .focus") as HTMLElement;
+
+  const userChoiceWrapper = document.querySelector(".user-choice-wrapper");
+  const houseChoiceWrapper = document.querySelector(".house-choice-wrapper");
+
+  const playAgainBtn = document.querySelector(".play-again-btn") as HTMLElement;
+
+  const houseChoice = document.createElement("div");
+  const userChoice = document.createElement("div");
+
+
+  const choices = [paper, rock, scissors];
+  const choicesBonus = [paper, rock, scissors, spock, lizard];
+
+  function win() {
+    result.textContent = "You win";
+    score.style.animation = "scoreUp .35s forwards 1.4s";
+    score.addEventListener("animationend", () => {
+      score.textContent = (parseInt(score.textContent) + 1).toString();
+      localStorage.setItem('score', score.textContent);
+      score.style.animation = "scoreDownUp .35s forwards";
+    }, {once: true});
+    focusUser.classList.add("active");
+  };
+
+  function tie() {
+    result.textContent = "Draw";
+    score.style.animation = "shake .35s forwards 1.4s";
+    score.addEventListener("animationend", () => {
+      score.style.animation = "";
+    }, {once: true});
+  };
+
+  function lose() {
+    result.textContent = "You lose";
+    if (parseInt(score.textContent) != 0) {
+      score.style.animation = "scoreDown .35s forwards 1.4s";
+      score.addEventListener("animationend", () => {
+        score.textContent = (parseInt(score.textContent) - 1).toString();
+        localStorage.setItem('score', score.textContent);
+        score.style.animation = "scoreUpDown .35s forwards";
+      }, {once: true});
+    };
+    focusHouse.classList.add("active");
+  };
+
+  function clean() {
+    document.querySelectorAll(".step-2 .choice").forEach(choice => {
+      choice.remove()
+    })
+
+    if (document.querySelector(".active")) {
+      document.querySelector(".active").classList.remove("active")
+    }
+  };
+
+  function toStep1() {
+    step2.style.animation = "fadeOut .3s forwards";
+    step2.addEventListener("animationend", () => {
+      clean()
+      step2.style.animation = "";
+      step2.style.display = "none";
+      step1.style.display = "flex";
+      step1.style.animation = "fadeIn .3s forwards";
+      step1.addEventListener("animationend", () => {
+        step1.style.animation = "";
+      }, {once: true})
+    }, {once:true})
+  };
+
+  function toStep2(choice) {
+    step1.style.animation = "fadeOut .3s forwards";
+    step1.addEventListener("animationend", () => {
+      step1.style.animation = "";
+      step1.style.display = "none";
+      step2.style.display = "grid";
+      step2.style.animation = "fadeIn .3s forwards";
+      step2.addEventListener("anmiationend", () => {
+        step2.style.animation = "";
+      }, {once: true})
+    }, {once: true});
+
+    userChoice.innerHTML = choice.outerHTML;
+    userChoiceWrapper.appendChild(userChoice);
+
+    if (step1.hasAttribute("aria-expanded")) {
+      houseChoice.innerHTML = choicesBonus[Math.floor(Math.random() * choicesBonus.length)].outerHTML;
+      houseChoiceWrapper.appendChild(houseChoice);
+    } else {
+      houseChoice.innerHTML = choices[Math.floor(Math.random() * choices.length)].outerHTML;
+      houseChoiceWrapper.appendChild(houseChoice);
+    };
+    houseChoice.style.opacity = "0";
+    houseChoice.style.animation = "fadeIn .3s forwards .5s";
+
+    const houseChoose = houseChoice.querySelector("div").classList[0];
+    const userChoose = choice.classList[0];
+
+    if (userChoose == "paper" && houseChoose == "rock") {
+      win();
+    } else if (userChoose == "scissors" && houseChoose == "paper") {
+      win();
+    } else if (userChoose == "rock" && houseChoose == "scissors") {
+      win();
+    } else if (userChoose == "spock" && houseChoose == "scissors") {
+      win();
+    } else if (userChoose == "lizard" && houseChoose == "spock") {
+      win();
+    } else if (userChoose == houseChoose) {
+      tie();
+    } else {
+      lose();
+    };
+
+    playAgain();
+  };
+
+  function playAgain() {
+    playAgainBtn.addEventListener("click", () => {
+      toStep1();
+    }, {once: true})
+  };
+
+  paperIcon.forEach(icon => {
+    icon.addEventListener("click", () => {
+      toStep2(paper);
+    });
+  });
+
+  scissorsIcon.forEach(icon => {
+    icon.addEventListener("click", () => {
+      toStep2(scissors);
+    });
+  });
+
+  rockIcon.forEach(icon => {
+    icon.addEventListener("click", () => {
+      toStep2(rock);
+    });
+  });
+
+  spockIcon.addEventListener("click", () => {
+    toStep2(spock);
+  });
+
+  lizardIcon.addEventListener("click", () => {
+    toStep2(lizard);
+  });
+
+</script>

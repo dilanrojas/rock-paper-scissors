@@ -1,0 +1,142 @@
+<section class="rules">
+  <button class="rules-btn">
+    Rules
+  </button>
+  
+  <div class="rules-modal-wrapper">
+    <div class="rules-modal">
+      <div class="modal-title">
+        <h1>Rules</h1>
+        <img class="modal-close" src="/icon-close.svg" alt="Close icon">
+      </div>
+      <img class="rules-img" src="/image-rules.svg" alt="Rules image">
+      <img class="rules-bonus-img" src="/image-rules-bonus.svg" alt="Bonus rules image">
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .rules {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 2em;
+  }
+
+  button {
+    cursor: pointer;
+    background-color: transparent;
+    border: 2px solid white;
+    text-transform: uppercase;
+    padding: .5em 2.2em;
+    color: white;
+    font-weight: 500;
+    border-radius: 10px;
+    letter-spacing: 2.5px;
+    transition: background-color .12s ease, color .15s ease;
+  }
+
+  button:hover {
+    background-color: white;
+    color: rgb(0, 0, 106);
+  }
+
+  .rules[aria-expanded] .rules-img {
+    display: none;
+  }
+
+  .rules[aria-expanded] .rules-bonus-img {
+    display: block;
+  }
+
+  .rules-modal-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(var(--dk-radial-gd));
+    z-index: 90;
+    animation: fadeIn .25s forwards
+  }
+
+  .rules-modal-wrapper[open] {
+    display: flex;
+  }
+
+  .rules-modal-wrapper[closing] {
+    animation: fadeOut .25s forwards
+  }
+
+  .rules-modal {
+    background-color: white;
+    width: fit-content;
+    padding: 1.8em;
+    border-radius: 10px;
+    z-index: 40;
+  }
+
+  .modal-title {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    justify-content: space-between;
+    margin-bottom: 2.5em;
+    color: var(--dk-text);
+    text-transform: uppercase;
+  }
+
+  .modal-close {
+    cursor: pointer;
+  }
+
+  .rules-img {
+    display: block;
+  }
+
+  .rules-img,
+  .rules-bonus-img {
+    padding-inline: 1.5em;
+  }
+
+
+  .rules-bonus-img {
+    display: none;
+    padding-bottom: 1.5em;
+  }
+
+  @media(width <= 850px) {
+    .rules {
+      position: static;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2em;
+    }
+  }
+
+</style>
+
+<script>
+  const rulesBtn = document.querySelector(".rules-btn") as HTMLElement;
+  const rulesModal = document.querySelector(".rules-modal-wrapper") as HTMLElement;
+  const iconClose = document.querySelector(".modal-close") as HTMLElement;
+
+  rulesBtn.addEventListener("click", () => {
+    rulesModal.toggleAttribute("open");
+
+    iconClose.addEventListener("click", () => {
+      rulesModal.toggleAttribute("closing");
+      rulesModal.addEventListener("animationend", () => {
+        rulesModal.toggleAttribute("open");
+        rulesModal.toggleAttribute("closing");
+      }, {once: true})
+    }, {once: true})
+  });
+
+</script>
