@@ -36,7 +36,7 @@ import Spock from "../Choices/Spock.astro";
 
 <style>
   .step-1 {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: fit-content;
@@ -137,18 +137,5 @@ import Spock from "../Choices/Spock.astro";
     display: none;
     width: 330px;
     height: 100%;
-  }
-
-  @media (width <= 850px) {
-    .step-1 {
-      min-height: 421px;
-      scale: 80%;
-    }
-  }
-
-  @media (width <= 500px) {
-    .step-1 {
-      scale: 70%
-    }
   }
 </style>
