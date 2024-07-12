@@ -1,14 +1,9 @@
----
-import Rock from "../Choices/Rock.astro"
----
-
 <div class="step-2">
 
   <div class="user-choice">
     <h1>You picked</h1>
     <div class="user-choice-wrapper">
       <div class="focus"></div>
-      <Rock />
     </div>
   </div>
   
@@ -21,7 +16,6 @@ import Rock from "../Choices/Rock.astro"
     <h1>The house picked</h1>
     <div class="house-choice-wrapper">
       <div class="focus"></div>
-      <Rock />
     </div>
   </div>
 
@@ -62,11 +56,12 @@ import Rock from "../Choices/Rock.astro"
 
   .user-choice {
     transform: translateX(120px);
+    z-index: 999;
   }
 
   .house-choice {
     transform: translateX(-120px);
-    z-index: -1;
+    z-index: 0;
   }
 
   .user-choice-wrapper,
@@ -105,6 +100,7 @@ import Rock from "../Choices/Rock.astro"
     border-radius: 100%;
     background-color: rgb(34, 49, 80, .4);
     scale: 0%;
+    z-index: -999
   }
   
   .focus.active {
@@ -216,7 +212,12 @@ import Rock from "../Choices/Rock.astro"
     .house-choice,
     .user-choice {
       gap: 2em;
-      padding-inline: 1em;
+      padding-inline: 1.5em;
+    }
+
+    .house-choice h1,
+    .user-choice h1 {
+      font-size: 1em;
     }
   }
 </style>
