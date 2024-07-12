@@ -39,8 +39,9 @@ import Spock from "../Choices/Spock.astro";
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
+    justify-self: center;
     width: fit-content;
-    height: 100%;
     position: relative;
     padding: 4em 4em;
   }
@@ -137,5 +138,22 @@ import Spock from "../Choices/Spock.astro";
     display: none;
     width: 330px;
     height: 100%;
+  }
+
+  @media (width <= 850px) {
+    .triangle-bg,
+    .pentagon-bg {
+      width: 300px;
+    }
+  }
+
+  @media (width <= 600px) {
+    .triangle-bg,
+    .pentagon-bg {
+      width: 200px;
+    }
+
+    .choices {
+    }
   }
 </style>

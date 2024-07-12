@@ -11,41 +11,77 @@ import Step2 from "./Steps/Step2.astro"
 
 <style is:global>
   .game {
-    margin-top: 4em;
+    margin-top: 3em;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
+    height: 410px;
   }
 
   .choice {
-    --shadow: 0px 8px 0px;
+    --choice-size: 11em;
+    --border-size: 1.2em;
+    --icon-size: 3.8em;
+    --shadow-size: 0px .5em 0px;
+    --inner-shadow: inset var(--shadow-size) rgb(211, 211, 211);
 
     cursor: pointer;
     position: relative;
-    border-radius: 100%;
-    height: 190px;
-    width: 190px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: scale .12s ease-out;
-    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.413));
-  }
-
-  .choice::before {
-    position: absolute;
-    content: '';
-    height: 150px;
-    width: 150px;
+    background: linear-gradient(-45deg, white, rgb(220, 220 ,220));
+    height: var(--choice-size);
+    width: var(--choice-size);
     border-radius: 100%;
-    background: linear-gradient(-45deg, white 5%, rgb(208, 208, 208) 100%);
-    box-shadow: inset var(--shadow) rgba(0, 0, 0, .12);
+    filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.414));
   }
 
   .choice img {
     position: absolute;
-    width: 70px;
+    width: var(--icon-size);
   }
+
+  .step-2 .choice {
+    --choice-size: 16em;
+    --border-size: 1.5em;
+    --icon-size: 4.8em;
+  }
+
+  @media (width <= 900px) {
+    .game {
+      margin-top: 2em;
+    }
+
+    .choice {
+      --choice-size: 10em;
+      --border-size: 1em;
+      --icon-size: 3.5em;
+      --shadow-size: 0px .45em 0px;
+    }
+
+    .step-2 .choice {
+      --choice-size: 12em;
+      --border-size: 1.1em;
+      --icon-size: 4.3em;
+    }
+  }
+
+  @media (width <= 600px) {
+    .choice {
+      --choice-size: 8em;
+      --border-size: .9em;
+      --icon-size: 2.9em;
+      --shadow-size: 0px .45em 0px;
+    }
+
+    .step-2 .choice {
+      --choice-size: 9em;
+      --border-size: .9em;
+      --icon-size: 3em;
+    }
+  }
+
 </style>
 
 <script>

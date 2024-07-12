@@ -3,16 +3,14 @@
     Rules
   </button>
   
-  <div class="rules-modal-wrapper">
+  <article class="rules-modal-wrapper">
     <div class="rules-modal">
-      <div class="modal-title">
-        <h1>Rules</h1>
-        <img class="modal-close" src="/icon-close.svg" alt="Close icon">
-      </div>
+      <h1>Rules</h1>
+      <img class="modal-close" src="/icon-close.svg" alt="Close icon">
       <img class="rules-img" src="/image-rules.svg" alt="Rules image">
       <img class="rules-bonus-img" src="/image-rules-bonus.svg" alt="Bonus rules image">
     </div>
-  </div>
+  </article>
 
 </section>
 
@@ -74,29 +72,28 @@
   }
 
   .rules-modal {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 3em;
+
     position: relative;
     background-color: white;
     width: fit-content;
-    padding: 1.8em;
+    padding: 2em 1.8em;
     border-radius: 10px;
     z-index: 40;
-    display: flex;
-    flex-direction: column;
   }
 
   .rules-modal h1 {
     font-size: 1.7em;
     text-transform: uppercase;
     color: var(--dk-text);
-    margin-bottom: 2.5em;
   }
 
   .modal-close {
     cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 2em;
+    width: fit-content;
+    justify-self: end;
   }
 
   .rules-img {
@@ -106,6 +103,8 @@
   .rules-img,
   .rules-bonus-img {
     padding-inline: 1.5em;
+    grid-column: span 2;
+    justify-self: center;
   }
 
 
@@ -116,26 +115,29 @@
 
   @media(width <= 850px) {
     .rules {
-      position: static;
       display: flex;
-      align-items: center;
+      position: static;
       justify-content: center;
-      margin-top: 2em;
+      padding-top: 1em;
     }
 
     .rules-modal {
       width: 100%;
       height: 100%;
       border-radius: 0px;
-      justify-content: center;
-      align-items: center;
+      place-content: center;
+      row-gap: 5em;
+    }
+
+    .rules-modal h1 {
+      grid-column: span 2;
+      justify-self: center;
     }
 
     .modal-close {
-      top: auto;
-      right: auto;
-      bottom: 0;
-      margin-bottom: 4em
+      grid-row: 3;
+      grid-column: span 2;
+      justify-self: center;
     }
   }
 

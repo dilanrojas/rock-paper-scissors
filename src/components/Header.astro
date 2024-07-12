@@ -1,17 +1,25 @@
-<header class="container">
-  <img class="logo" src="/logo.svg" alt="Logo">
-  <div class="score-wrapper">
-    <h1>Score</h1>
-    <span class="score">0</span>
+<header>
+  <div class="header-wrapper container">
+    <img class="logo" src="/logo.svg" alt="Logo">
+    <div class="score-wrapper">
+      <h1>Score</h1>
+      <span class="score">0</span>
+    </div>
   </div>
 </header>
 
 <style>
   header {
     display: flex;
+    align-items: end;
+    height: 170px;
+  }
+
+  .header-wrapper {
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 150.8px;
+    height: 130px;
 
     border: 3px solid var(--header-outline);
     padding: 1em 1.5em;
@@ -28,8 +36,7 @@
     background-color: white;
     border-radius: 10px;
     text-align: center;
-    width: 5em;
-    height: 4em;
+    padding: .5em 1.7em;
     font-size: 1.5em;
   }
 
@@ -51,21 +58,21 @@
 
   .logo {
     cursor: pointer;
+    height: 100%;
   }
 
-  @media (width <= 500px) {
-    .logo {
-      width: 70px;
-    }
+  @media (width <= 850px) {
     header {
-      min-height: 109.9px;
-      border-radius: 5px;
+      height: 130px;
     }
+
+    .header-wrapper {
+      height: 110px;
+    }
+
     .score-wrapper {
-      width: 4em;
-      height: 4em;
-      font-size: 1em;
-      border-radius: 5px;
+      padding: .5em 1.7em;
+      font-size: 1.2em;
     }
   }
 </style>
