@@ -177,6 +177,8 @@ import Step2 from "./Steps/Step2.astro"
         step1.style.animation = "";
       }, {once: true})
     }, {once:true})
+
+    document.querySelector<HTMLElement>(".logo").style.pointerEvents = "all";
   };
 
   function toStep2(choice) {
@@ -224,6 +226,8 @@ import Step2 from "./Steps/Step2.astro"
     };
 
     playAgain();
+
+    document.querySelector<HTMLElement>(".logo").style.pointerEvents = "none";
   };
 
   function playAgain() {
