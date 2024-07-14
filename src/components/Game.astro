@@ -150,12 +150,15 @@ import Step2 from "./Steps/Step2.astro"
       }, {once: true});
     };
     focusHouse.classList.add("active");
+    document.querySelector<HTMLElement>(".user-choice").style.zIndex = "9999";
   };
 
   function clean() {
     document.querySelectorAll(".step-2 .choice").forEach(choice => {
       choice.remove()
     })
+
+    document.querySelector<HTMLElement>(".user-choice").style.zIndex = "0";
 
     if (document.querySelector(".active")) {
       document.querySelector(".active").classList.remove("active")
