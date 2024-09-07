@@ -22,8 +22,4 @@ npm install
 
 ```bash
 npm run dev
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 64300bf526080547f663414684751a1de1e2f3f0
